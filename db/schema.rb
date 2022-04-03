@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_01_143011) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_03_145625) do
+  create_table "url_tags", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "urls_id", null: false
+    t.index ["urls_id"], name: "index_url_tags_on_urls_id"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.string "target_url", null: false
+    t.string "short_url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "users_id", null: false
+    t.index ["users_id"], name: "index_urls_on_users_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -21,4 +38,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_01_143011) do
     t.index ["email"], name: "unique_emails", unique: true
   end
 
+  add_foreign_key "url_tags", "urls", column: "urls_id"
+  add_foreign_key "urls", "users", column: "users_id"
 end
