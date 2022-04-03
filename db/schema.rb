@@ -21,11 +21,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_150212) do
 
   create_table "urls", force: :cascade do |t|
     t.string "target_url", null: false
-    t.string "short_url", null: false
+    t.string "short_url", limit: 15, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "users_id", null: false
     t.integer "clicks"
+    t.index ["short_url"], name: "unique_short_url", unique: true
     t.index ["users_id"], name: "index_urls_on_users_id"
   end
 
