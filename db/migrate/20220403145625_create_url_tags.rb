@@ -5,6 +5,6 @@ class CreateUrlTags < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_reference :url_tags, :urls, foreign_key: true, null: false
+    add_reference :url_tags, :url, foreign_key: true, null: false
   end
 end

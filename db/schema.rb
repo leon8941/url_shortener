@@ -15,8 +15,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_150212) do
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "urls_id", null: false
-    t.index ["urls_id"], name: "index_url_tags_on_urls_id"
+    t.integer "url_id", null: false
+    t.index ["url_id"], name: "index_url_tags_on_url_id"
   end
 
   create_table "urls", force: :cascade do |t|
@@ -24,10 +24,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_150212) do
     t.string "short_url", limit: 15, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id", null: false
+    t.integer "user_id", null: false
     t.integer "clicks"
     t.index ["short_url"], name: "unique_short_url", unique: true
-    t.index ["users_id"], name: "index_urls_on_users_id"
+    t.index ["user_id"], name: "index_urls_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,6 +40,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_150212) do
     t.index ["email"], name: "unique_emails", unique: true
   end
 
-  add_foreign_key "url_tags", "urls", column: "urls_id"
-  add_foreign_key "urls", "users", column: "users_id"
+  add_foreign_key "url_tags", "urls"
+  add_foreign_key "urls", "users"
 end

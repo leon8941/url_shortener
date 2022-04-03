@@ -6,6 +6,6 @@ class CreateUrls < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    add_reference :urls, :users, foreign_key: true, null: false
+    add_reference :urls, :user, foreign_key: true, null: false
   end
 end
