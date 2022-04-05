@@ -1,7 +1,5 @@
 class UrlsController < ApplicationController
-    def index
-        @urls = Url.all
-    end
+    before_action :set_url, only: [:update, :edit]
 
     def new
         @url = Url.new
@@ -24,6 +22,19 @@ class UrlsController < ApplicationController
         end
     end
 
+    def update
+        
+        if @url.update(url_params)
+            redirect_to root_path, notice: 'Successfully updated new link'
+        else
+            flash[:error] = @url.errors.full_messages
+            redirect_to edit_url_path
+        end
+    end
+
+    def edit
+    end
+
     def show
         @url = Url.find_by(short_url: params[:short_url])
         redirect_to @url.sanitize
@@ -32,5 +43,9 @@ class UrlsController < ApplicationController
     private
     def url_params
         params.require(:url).permit(:target_url)
+    end
+
+    def set_url
+        @url = Url.find(params[:id])
     end
 end

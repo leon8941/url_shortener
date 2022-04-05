@@ -1,0 +1,11 @@
+<ul class="list-group">
+    <% @urls.each do |url| %>
+        <div href="#" class="list-group-item">
+            <div class="short-url-container">
+                <h3 class="list-group-item-heading"><%= url.short_url%></h3>
+            </div>
+            <h5>Target Url: <span class="label label-default"><%= url.target_url%></span></h5>
+            <%= link_to "Edit", edit_url_path(url.id) %>
+        </div>
+    <% end %>
+</ul>

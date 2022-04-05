@@ -1,18 +1,5 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header" data-controller="navbar">
-            <a class="navbar-brand" href="#">CoinGecko URL Shortener</a>
-            <% if @_current_user != nil %>
-                <p class="navbar-text">Signed in as
-                    <%= @_current_user.first_name + ' ' + @_current_user.last_name %>
-                </p>
-                <a href="/urls/new" type="button" class="btn btn-default navbar-btn">Create Link</a>
-                <button data-action="click->navbar#logout" type="button" class="btn btn-default navbar-btn">Logout</button>
-            <% else %>
-                <a href="/logins" type="button" class="btn btn-default navbar-btn">Sign in</a>
-                <a href="/registers" type="button" class="btn btn-default navbar-btn">Register</a>
-            <% end %>
-        </div>
-    </div>
-</nav>
+<%= render 'shared/navbar'%>
 
+<div class="container">
+    <%= render 'shared/urls'%>
+</div>
