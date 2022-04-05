@@ -1,6 +1,6 @@
 <h1>Register<h1>
- <%= form_with model: @user, url: registers_path do |f| %>
-     <p>
+<%= form_with model: @user, url: registers_path do |f| %>
+    <p>
         <%= f.label 'first name:'%><br>
         <%= f.text_field :first_name, id: 'first_name' %>
     </p>

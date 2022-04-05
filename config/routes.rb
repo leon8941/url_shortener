@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get 'logins', to: 'logins#new'
   post 'logins', to: 'logins#create'
   delete 'logout', to: 'logins#destroy'
+
+  resources :urls, only: [:index, :new, :create, :show]
 end
