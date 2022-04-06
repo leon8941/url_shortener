@@ -1,13 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+<% User.new do |user| %>
+<% user.password = '123456' %>
+john:
+  first_name: john
+  last_name: wick
+  email: johnwick@example.com
+  password_digest: user.password_digest
 
-one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  password: MyString
-
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  password: MyString
+ann:
+  first_name: ann
+  last_name: hathaway
+  email: annhathaway@example.com
+  password_digest: user.password_digest
+<% end %>
