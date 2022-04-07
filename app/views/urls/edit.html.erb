@@ -5,7 +5,24 @@
         <%= f.label 'Enter Target Url:'%><br>
         <%= f.text_field :target_url, id: 'target_url' %>
     </p>
+    <div class="tags" data-controller="tags">
+        <p>
+            <%= f.label 'Tags:'%><br>
+            <input
+                id="tag_title"
+                type="text"
+                name="url[tag_title]"
+                data-action="blur->tags#tagInputOnBlur"
+                data-tags-target="tagInput"
+            />
+        </p>
+        <ul class="nav" role="tablist" data-tags-target="tagsList">
+        </ul>
+
+    </div>
     <p>
         <%= f.submit 'Save' %>
     </p>
 <% end %>
+
+ 
