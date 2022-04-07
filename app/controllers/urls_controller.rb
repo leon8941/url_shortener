@@ -23,7 +23,6 @@ class UrlsController < ApplicationController
     end
 
     def update
-        
         if @url.update(url_params)
             redirect_to root_path, notice: 'Successfully updated new link'
         else

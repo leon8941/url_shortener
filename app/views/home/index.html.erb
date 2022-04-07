@@ -1,5 +1,7 @@
 <%= render 'shared/navbar'%>
 
 <div class="container">
-    <%= render 'shared/urls'%>
+    <% if @_current_user != nil %>
+        <%= render 'shared/urls'%>
+    <% end %>
 </div>
