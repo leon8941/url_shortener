@@ -47,7 +47,12 @@ class UrlsController < ApplicationController
 
     def show
         @url = Url.find_by(short_url: params[:short_url])
-        redirect_to @url.sanitize
+        
+        if @url.blank?
+            redirect_to '/not_found'
+        else
+            redirect_to @url.sanitize, allow_other_host: true
+        end
     end
 
     private

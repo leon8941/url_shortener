@@ -1,4 +1,5 @@
 <div class="urls" data-controller="urls" data-urls-tags-data-value="<%= @url_tag_titles %>">
+    <a href="<%= root_path %>">Back</a>
     <h1>Edit Link<h1>
     <%= form_with model: @url, url: url_path, method: :put, html: { 'data-urls-target': 'form' } do |f| %>
         <%= f.number_field :id, id: 'id', type: :hidden %>
