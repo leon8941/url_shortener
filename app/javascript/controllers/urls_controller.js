@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-	static targets = [ "tagsList", "tagData", "tagInput" ]
+	static targets = [ "tagsList", "tagData", "tagInput", "form" ]
 	static values = { tagsData: Array }
 
 	connect() {
@@ -21,7 +21,7 @@ export default class extends Controller {
 		this.generateTagsList()
 	}
 
-	tagInputOnBlur(event) {
+	executeTagInputProcess(event) {
 		const eventValue = event.target.value
 
 		if (!this.validateInput(eventValue)) {
@@ -35,24 +35,42 @@ export default class extends Controller {
 
 		this.removeChildElements()
 		this.generateTagsList()
-		this.clearTagInput()	
+		this.clearTagInput()
+	}
+
+	tagInputOnKeyPress(event) {
+		console.log(event)
+		if (event.key === 'Enter') {
+			this.executeTagInputProcess(event)
+		}
 	}
 
 	generateTagsList() {
 		this.tagsDataValue.forEach(function (tagData) {
 			const tagList = document.createElement("li")
 			const chip = this.generateChip(tagData)
+			const hidden = this.generateHiddenValue(tagData)
 
 			tagList.appendChild(chip)
+			tagList.appendChild(hidden)
 			this.tagsListTargets[0].appendChild(tagList)
 		}, this)
+	}
+
+	generateHiddenValue(textValue) {
+		const input = document.createElement("input")
+		input.type = "hidden"
+		input.value = textValue
+		input.name = `url[tags][]`
+
+		return input
 	}
 
 	generateChip(textValue) {
 		const span = document.createElement("span")
 		const spanAttr = document.createAttribute("class")
-		const dataTagsTargetAttr = document.createAttribute("data-tags-target")
-		const dataTagsTagValueAttr = document.createAttribute("data-tags-tag-value")
+		const dataTagsTargetAttr = document.createAttribute("data-urls-target")
+		const dataTagsTagValueAttr = document.createAttribute("data-urls-tag-value")
 
 		spanAttr.value = "badge"
 		dataTagsTargetAttr.value = "tagData"
@@ -61,7 +79,7 @@ export default class extends Controller {
 		span.setAttributeNode(spanAttr)
 		span.setAttributeNode(dataTagsTargetAttr)
 		span.setAttributeNode(dataTagsTagValueAttr)
-		span.innerHTML = `${textValue} <a class="glyphicon glyphicon-remove" style="color: white" data-action="click->tags#tagDeleteOnClick" data-tags-text-value-param="${textValue}"></a>`
+		span.innerHTML = `${textValue} <a class="glyphicon glyphicon-remove" style="color: white" data-action="click->urls#tagDeleteOnClick" data-urls-text-value-param="${textValue}"></a>`
 		return span
 	}
 
@@ -90,5 +108,10 @@ export default class extends Controller {
 		if (this.hasTagInputTarget) {
 			this.tagInputTargets[0].value = ''
 		}
+	}
+
+	onSubmit(e) {
+		e.preventDefault()
+		this.formTarget.submit()
 	}
 }

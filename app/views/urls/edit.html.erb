@@ -1,28 +1,40 @@
-<h1>Edit Link<h1>
-<%= form_with model: @url, url: url_path, method: :put do |f| %>
-    <%= f.number_field :id, id: 'id', type: :hidden %>
-    <p>
-        <%= f.label 'Enter Target Url:'%><br>
-        <%= f.text_field :target_url, id: 'target_url' %>
-    </p>
-    <div class="tags" data-controller="tags">
+<div class="urls" data-controller="urls" data-urls-tags-data-value="<%= @url_tag_titles %>">
+    <h1>Edit Link<h1>
+    <%= form_with model: @url, url: url_path, method: :put, html: { 'data-urls-target': 'form' } do |f| %>
+        <%= f.number_field :id, id: 'id', type: :hidden %>
         <p>
-            <%= f.label 'Tags:'%><br>
-            <input
-                id="tag_title"
-                type="text"
-                name="url[tag_title]"
-                data-action="blur->tags#tagInputOnBlur"
-                data-tags-target="tagInput"
-            />
+            <%= f.label 'Enter Target Url:'%><br>
+            <%= f.text_field :target_url, id: 'target_url' %>
         </p>
-        <ul class="nav" role="tablist" data-tags-target="tagsList">
-        </ul>
-
-    </div>
-    <p>
-        <%= f.submit 'Save' %>
-    </p>
-<% end %>
-
- 
+        <div class="tags">
+            <p>
+                <%= f.label 'Tags:'%><br>
+                <input
+                    id="tag_title"
+                    type="text"
+                    name="url[tag_title]"
+                    data-action="keypress->urls#tagInputOnKeyPress"
+                    data-urls-target="tagInput"
+                />
+            </p>
+            <ul class="nav" role="tablist" data-urls-target="tagsList">
+                <% @url.url_tags.each do |url_tag| %>
+                    <li>
+                        <span class="badge" data-urls-target="tagData" data-urls-tag-value="<%= url_tag.title %>">
+                            <%= url_tag.title %>
+                            <a class="glyphicon glyphicon-remove"
+                                style="color: white" data-action="click->urls#tagDeleteOnClick" data-urls-text-value-param="<%= url_tag.title %>">
+                            </a>
+                        </span>
+                        <input type="hidden" value="<%= url_tag.title%>" name="url[tags][]">
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+        <p>
+            <button type="button" data-action="click->urls#onSubmit">
+                Save
+            </button>
+        </p>
+    <% end %>
+</div>

@@ -23,7 +23,17 @@ class UrlsController < ApplicationController
     end
 
     def update
-        if @url.update(url_params)
+        target_url = url_params[:target_url]
+
+        if @url.update(target_url: target_url)
+            tags = url_params[:tags]
+
+            UrlTag.where(url_id: @url.id).delete_all
+
+            tags.each do |tag|
+                @url.url_tags.create(title: tag)
+            end
+
             redirect_to root_path, notice: 'Successfully updated new link'
         else
             flash[:error] = @url.errors.full_messages
@@ -32,6 +42,7 @@ class UrlsController < ApplicationController
     end
 
     def edit
+        @url_tag_titles = @url.url_tags.pluck(:title)
     end
 
     def show
@@ -41,7 +52,7 @@ class UrlsController < ApplicationController
 
     private
     def url_params
-        params.require(:url).permit(:target_url)
+        params.require(:url).permit(:target_url, tags: [])
     end
 
     def set_url
