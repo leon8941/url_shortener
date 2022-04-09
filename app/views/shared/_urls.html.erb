@@ -1,11 +1,19 @@
-<ul class="list-group">
+<ul class="list-group row" data-controller="home">
     <% @_current_user.urls.each do |url| %>
-        <div href="#" class="list-group-item">
-            <div class="short-url-container">
-                <h3 class="list-group-item-heading"><%= url.short_url%></h3>
-            </div>
-            <h5>Target Url: <span class="label label-default"><%= url.target_url%></span></h5>
-            <%= link_to "Edit", edit_url_path(url.id) %>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-primary" data-action="click->home#copyLink">
+                Copy Url
+            </button>
+        </div>
+        <div class="col-md-11">
+            <a href="<%= edit_url_path(url.id)%>" class="list-group-item">
+                <div class="short-url-container">
+                    <h4 class="list-group-item-heading" data-home-target="shortUrl" value="<%= @hostname + "/" + url.short_url %>">
+                        <%= "/" + url.short_url %>
+                    </h4>
+                </div>
+                <h5>Target Url: <span class="label label-default"><%= url.target_url %></span></h5>
+            </a>
         </div>
     <% end %>
 </ul>

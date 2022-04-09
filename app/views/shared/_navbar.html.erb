@@ -4,7 +4,7 @@
             <a class="navbar-brand" href="#">CoinGecko URL Shortener</a>
             <% if @_current_user != nil %>
                 <p class="navbar-text">Signed in as
-                    <%= @_current_user.first_name + ' ' + @_current_user.last_name %>
+                    <%= @user_decorator.full_name %>
                 </p>
                 <a href="/urls/new" type="button" class="btn btn-default navbar-btn">Create Link</a>
                 <button data-action="click->navbar#logout" type="button" class="btn btn-default navbar-btn">Logout</button>
