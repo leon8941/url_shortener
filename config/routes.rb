@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   
   get ':short_url', to: 'urls#get_url'
 
-  resources :urls, only: [:index, :new, :create, :update, :edit, :show]
+  resources :urls
 end

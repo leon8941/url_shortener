@@ -1,5 +1,5 @@
 class UrlsController < ApplicationController
-    before_action :set_url, only: [:update, :edit, :show]
+    before_action :set_url, only: [:update, :edit, :show, :destroy]
     before_action :set_coordinates, only: [:show, :get_url]
 
     def new
@@ -9,6 +9,10 @@ class UrlsController < ApplicationController
     def show
         @daily_visits = @url.url_traces.group_by_day(:created_at)
         @visit_no_by_countries = @url.url_traces.where.not(country: nil).group(:country)
+    end
+
+    def edit
+        @url_tag_titles = @url.url_tags.pluck(:title)
     end
 
     def create
@@ -47,8 +51,10 @@ class UrlsController < ApplicationController
         end
     end
 
-    def edit
-        @url_tag_titles = @url.url_tags.pluck(:title)
+    def destroy
+        Url.where(id: @url.id).destroy_all
+
+        redirect_to root_path, notice: 'Successfully deleted url'
     end
 
     def get_url
