@@ -4,6 +4,7 @@ class Url < ApplicationRecord
     has_many :url_traces, dependent: :destroy
 
     validates :short_url, length: { maximum: 15 }
+    validates :target_url, presence: true
     before_create :generate_short_url, :sanitize
 
     def generate_short_url

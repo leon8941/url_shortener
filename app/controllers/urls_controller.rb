@@ -22,8 +22,7 @@ class UrlsController < ApplicationController
 
         @url.user_id = user_id
         @url.short_url = @url.generate_short_url
-        @url.target_url = @url.sanitize
-
+        
         if @url.save
             redirect_to root_path, notice: 'Successfully created new link'
         else
@@ -36,7 +35,7 @@ class UrlsController < ApplicationController
         target_url = url_params[:target_url]
 
         if @url.update(target_url: target_url)
-            tags = url_params[:tags]
+            tags = url_params[:tags] || []
 
             UrlTag.where(url_id: @url.id).delete_all
 
