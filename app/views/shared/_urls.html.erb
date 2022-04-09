@@ -1,14 +1,14 @@
 <ul class="list-group row" data-controller="home">
     <% @_current_user.urls.each do |url| %>
         <div class="col-md-1">
-            <button type="button" class="btn btn-primary" data-action="click->home#copyLink">
+            <button type="button" class="btn btn-primary" data-action="click->home#copyLink" data-home-short-url-param="<%= @hostname + "/" + url.short_url %>">
                 Copy Url
             </button>
         </div>
         <div class="col-md-11">
             <a href="<%= edit_url_path(url.id)%>" class="list-group-item">
                 <div class="short-url-container">
-                    <h4 class="list-group-item-heading" data-home-target="shortUrl" value="<%= @hostname + "/" + url.short_url %>">
+                    <h4 class="list-group-item-heading">
                         <%= "/" + url.short_url %>
                     </h4>
                 </div>
