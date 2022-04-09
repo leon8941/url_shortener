@@ -1,41 +1,63 @@
-<div class="urls" data-controller="urls" data-urls-tags-data-value="<%= @url_tag_titles %>">
-    <a href="<%= root_path %>">Back</a>
-    <h1>Edit Link<h1>
-    <%= form_with model: @url, url: url_path, method: :put, html: { 'data-urls-target': 'form' } do |f| %>
-        <%= f.number_field :id, id: 'id', type: :hidden %>
-        <p>
-            <%= f.label 'Enter Target Url:'%><br>
-            <%= f.text_field :target_url, id: 'target_url' %>
-        </p>
-        <div class="tags">
-            <p>
-                <%= f.label 'Tags:'%><br>
-                <input
-                    id="tag_title"
-                    type="text"
-                    name="url[tag_title]"
-                    data-action="keypress->urls#tagInputOnKeyPress"
-                    data-urls-target="tagInput"
-                />
-            </p>
-            <ul class="nav" role="tablist" data-urls-target="tagsList">
-                <% @url.url_tags.each do |url_tag| %>
-                    <li>
-                        <span class="badge" data-urls-target="tagData" data-urls-tag-value="<%= url_tag.title %>">
-                            <%= url_tag.title %>
-                            <a class="glyphicon glyphicon-remove"
-                                style="color: white" data-action="click->urls#tagDeleteOnClick" data-urls-text-value-param="<%= url_tag.title %>">
-                            </a>
-                        </span>
-                        <input type="hidden" value="<%= url_tag.title%>" name="url[tags][]">
-                    </li>
-                <% end %>
-            </ul>
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="<%= root_path %>">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back
+                </a>
+            </div>
         </div>
-        <p>
-            <button type="button" data-action="click->urls#onSubmit">
-                Save
-            </button>
-        </p>
-    <% end %>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Edit Page</h3> 
+                    </div>
+                    <div class="panel-body">
+                        <div class="urls" data-controller="urls" data-urls-tags-data-value="<%= @url_tag_titles %>">
+                            <%= form_with model: @url, url: url_path, method: :put, html: { 'data-urls-target': 'form', class: "form-row" } do |f| %>
+                                <div class="form-group">
+                                    <%= f.number_field :id, id: 'id', type: :hidden %>
+                                    <%= f.label 'Enter Target Url:' %><br>
+                                    <%= f.text_field :target_url, id: 'target_url', class: "form-control" %>
+                                </div>
+                                <div class="form-group">
+                                    <div class="tags">
+                                        <%= f.label 'Tags:'%><br>
+                                        <input
+                                            id="tag_title"
+                                            class="form-control"
+                                            type="text"
+                                            name="url[tag_title]"
+                                            data-action="keypress->urls#tagInputOnKeyPress"
+                                            data-urls-target="tagInput"
+                                            placeholder="Press enter to add tag"
+                                        />
+                                        <ul class="nav" role="tablist" data-urls-target="tagsList">
+                                            <% @url.url_tags.each do |url_tag| %>
+                                                <li>
+                                                    <span class="badge" data-urls-target="tagData" data-urls-tag-value="<%= url_tag.title %>">
+                                                        <%= url_tag.title %>
+                                                        <a class="glyphicon glyphicon-remove"
+                                                            style="color: white" data-action="click->urls#tagDeleteOnClick" data-urls-text-value-param="<%= url_tag.title %>">
+                                                        </a>
+                                                    </span>
+                                                    <input type="hidden" value="<%= url_tag.title%>" name="url[tags][]">
+                                                </li>
+                                            <% end %>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-default" data-action="click->urls#onSubmit">
+                                        Save
+                                    </button>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

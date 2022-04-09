@@ -1,7 +1,12 @@
-<a href="<%= root_path %>">Back</a>
-
 <div class="container">
     <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="<%= root_path %>">
+                    <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back
+                </a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <div>
@@ -10,20 +15,28 @@
                 </div>
                 <div>
                     <h5>Latest visited time: </h5>
-                    <span class="label label-info"><%= @url.url_traces.order(:created_at).last.created_at.to_fs(:long_ordinal) %></span>
+                    <% if @url.url_traces.count > 0 %>
+                        <span class="label label-info"><%= @url.url_traces.order(:created_at).last.created_at.to_fs(:long_ordinal) %></span>
+                    <% else %>
+                        <span class="label label-info">N/A</span>
+                    <% end %>
                 </div>
                 <div>
                     <div class="row">
                         <div class="col-md-12">
                             <h5>Top 3 countries: </h5>
-                            <ul class="list-unstyled">
-                                <% @visit_no_by_countries.count.sort_by {|k, v| -v}.first(3).each do |data| %>
-                                    <li class="list-unstyled-item">
-                                        <%= data[0]%>
-                                        <span class="badge"><%= data[1]%></span>
-                                    </li>
-                                <% end %>
-                            </ul>
+                            <% if @url.url_traces.count > 0 %>
+                                <ul class="list-unstyled">
+                                    <% @visit_no_by_countries.count.sort_by {|k, v| -v}.first(3).each do |data| %>
+                                        <li class="list-unstyled-item">
+                                            <%= data[0]%>
+                                            <span class="badge"><%= data[1]%></span>
+                                        </li>
+                                    <% end %>
+                                </ul>
+                            <% else %>
+                                <span class="label label-info">N/A</span>
+                            <% end %>
                         </div>
                     </div>
                 </div>
