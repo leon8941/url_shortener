@@ -47,6 +47,8 @@ gem 'bootstrap-sass', '~> 3.4'
 gem 'sassc-rails', '~> 2.1.0'
 gem 'jquery-rails', '~> 4.4'
 gem 'geocoder', '~> 1.7.5'
+gem 'chartkick', '~> 4.1.3'
+gem 'groupdate', '~> 6.1.0'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

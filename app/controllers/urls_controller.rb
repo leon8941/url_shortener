@@ -1,9 +1,14 @@
 class UrlsController < ApplicationController
-    before_action :set_url, only: [:update, :edit]
-    before_action :set_coordinates, only: [:show]
+    before_action :set_url, only: [:update, :edit, :show]
+    before_action :set_coordinates, only: [:show, :get_url]
 
     def new
         @url = Url.new
+    end
+
+    def show
+        @daily_visits = @url.url_traces.group_by_day(:created_at)
+        @visit_no_by_countries = @url.url_traces.where.not(country: nil).group(:country)
     end
 
     def create
@@ -46,9 +51,9 @@ class UrlsController < ApplicationController
         @url_tag_titles = @url.url_tags.pluck(:title)
     end
 
-    def show
+    def get_url
         @url = Url.find_by(short_url: params[:short_url])
-        #"180.75.235.52"
+
         if @url.blank?
             redirect_to '/not_found'
         else

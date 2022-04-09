@@ -1,18 +1,32 @@
 <ul class="list-group row" data-controller="home">
     <% @_current_user.urls.each do |url| %>
         <div class="col-md-1">
-            <button type="button" class="btn btn-primary" data-action="click->home#copyLink" data-home-short-url-param="<%= @hostname + "/" + url.short_url %>">
+            <button 
+                type="button"
+                class="btn btn-primary btn-sm btn-block"
+                data-action="click->home#copyLink"
+                data-home-short-url-param="<%= @hostname + "/" + url.short_url %>"
+            >
                 Copy Url
             </button>
+            <a class="btn btn-warning btn-sm btn-block" href="<%= edit_url_path(url.id)%>">
+                Edit
+            </a>
         </div>
         <div class="col-md-11">
-            <a href="<%= edit_url_path(url.id)%>" class="list-group-item">
+            <a href="<%= url_path(url.id)%>" class="list-group-item">
                 <div class="short-url-container">
                     <h4 class="list-group-item-heading">
                         <%= "/" + url.short_url %>
                     </h4>
                 </div>
-                <h5>Target Url: <span class="label label-default"><%= url.target_url %></span></h5>
+                <h5>Target Url: <span class="label label-primary"><%= url.target_url %></span></h5>
+                <h5>Clicks: <span class="label label-default"><%= url.clicks %></span></h5>
+                <div>
+                    <% url.url_tags.each do |tag| %>
+                        <span class="label label-success"><%= tag.title %></span>
+                    <% end %>
+                </div>
             </a>
         </div>
     <% end %>

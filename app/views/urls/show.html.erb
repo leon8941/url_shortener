@@ -1,0 +1,38 @@
+<a href="<%= root_path %>">Back</a>
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-2">
+                <div>
+                    <h5>Total Clicks: </h5>
+                    <span class="label label-info"><%= @url.clicks %></span>
+                </div>
+                <div>
+                    <h5>Latest visited time: </h5>
+                    <span class="label label-info"><%= @url.url_traces.order(:created_at).last.created_at.to_fs(:long_ordinal) %></span>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Top 3 countries: </h5>
+                            <ul class="list-unstyled">
+                                <% @visit_no_by_countries.count.sort_by {|k, v| -v}.first(3).each do |data| %>
+                                    <li class="list-unstyled-item">
+                                        <%= data[0]%>
+                                        <span class="badge"><%= data[1]%></span>
+                                    </li>
+                                <% end %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="chart-container">
+                    <%= column_chart @daily_visits.count, id: "daily-visit-chart", ytitle: "Clicks" %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
