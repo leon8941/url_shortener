@@ -1,5 +1,6 @@
 class UrlsController < ApplicationController
     before_action :set_url, only: [:update, :edit]
+    before_action :set_coordinates, only: [:show]
 
     def new
         @url = Url.new
@@ -47,10 +48,18 @@ class UrlsController < ApplicationController
 
     def show
         @url = Url.find_by(short_url: params[:short_url])
-        
+        #"180.75.235.52"
         if @url.blank?
             redirect_to '/not_found'
         else
+            @url.clicks = @url.clicks + 1
+
+            unless @longitude.blank? && @latitude.blank?
+                @url.url_traces.create(longitude: @longitude, latitude: @latitude)
+            end
+
+            @url.save
+
             redirect_to @url.sanitize, allow_other_host: true
         end
     end
@@ -62,5 +71,11 @@ class UrlsController < ApplicationController
 
     def set_url
         @url = Url.find(params[:id])
+    end
+
+    def set_coordinates
+        location = request.location
+        @longitude = location.longitude
+        @latitude = location.latitude
     end
 end

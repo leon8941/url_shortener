@@ -46,6 +46,7 @@ gem 'bootstrap-sass', '~> 3.4'
 # Use Sass to process CSS
 gem 'sassc-rails', '~> 2.1.0'
 gem 'jquery-rails', '~> 4.4'
+gem 'geocoder', '~> 1.7.5'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

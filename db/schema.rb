@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_03_150212) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_09_062017) do
   create_table "url_tags", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
@@ -19,13 +19,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_150212) do
     t.index ["url_id"], name: "index_url_tags_on_url_id"
   end
 
+  create_table "url_traces", force: :cascade do |t|
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "url_id", null: false
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "state_code"
+    t.string "postal_code"
+    t.string "country"
+    t.string "country_code"
+    t.index ["url_id"], name: "index_url_traces_on_url_id"
+  end
+
   create_table "urls", force: :cascade do |t|
     t.string "target_url", null: false
     t.string "short_url", limit: 15, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.integer "clicks"
+    t.integer "clicks", default: 0
     t.index ["short_url"], name: "unique_short_url", unique: true
     t.index ["user_id"], name: "index_urls_on_user_id"
   end
@@ -41,5 +57,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_03_150212) do
   end
 
   add_foreign_key "url_tags", "urls"
+  add_foreign_key "url_traces", "urls"
   add_foreign_key "urls", "users"
 end

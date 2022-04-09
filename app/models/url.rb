@@ -1,6 +1,7 @@
 class Url < ApplicationRecord
     belongs_to :user
     has_many :url_tags
+    has_many :url_traces
 
     validates :short_url, length: { maximum: 15 }
     before_create :generate_short_url, :sanitize
