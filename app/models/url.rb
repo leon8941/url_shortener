@@ -13,7 +13,7 @@ class Url < ApplicationRecord
     
     def sanitize
         target_url.strip!
-        sanitize_url = self.target_url.downcase.gsub(/(https?:\/\/)|(www\.)/, "")
+        sanitize_url = self.target_url.gsub(/(https?:\/\/)|(www\.)/, "")
         "http://#{sanitize_url}"
     end
 end
