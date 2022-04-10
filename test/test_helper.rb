@@ -10,4 +10,13 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  module SignInHelper
+    def sign_in_as(user, password)
+      post logins_url(email: user.email, password: password)
+    end
+  end
+    
+  class ActionDispatch::IntegrationTest
+      include SignInHelper
+  end
 end

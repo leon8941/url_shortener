@@ -6,3 +6,11 @@ john_url_2:
   target_url: https://www.youtube.com/watch?v=NUYvbT6vTPs
   short_url: zi9aaobt
   user: john
+ann_url_1:
+  target_url: https://guides.rubyonrails.org/testing.html
+  short_url: 3db518y5
+  user: ann
+ann_url_2:
+  target_url: https://gitlab.com/coingecko-dev-test/link-shortener
+  short_url: 9db528y1
+  user: ann

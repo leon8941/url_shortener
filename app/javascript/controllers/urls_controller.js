@@ -39,7 +39,6 @@ export default class extends Controller {
 	}
 
 	tagInputOnKeyPress(event) {
-		console.log(event)
 		if (event.key === 'Enter') {
 			this.executeTagInputProcess(event)
 		}

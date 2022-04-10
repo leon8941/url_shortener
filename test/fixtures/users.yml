@@ -5,11 +5,11 @@ john:
   first_name: john
   last_name: wick
   email: johnwick@example.com
-  password_digest: user.password_digest
+  password_digest: <%= user.password_digest %>
 
 ann:
   first_name: ann
   last_name: hathaway
   email: annhathaway@example.com
-  password_digest: user.password_digest
+  password_digest: <%= user.password_digest %>
 <% end %>
