@@ -12,7 +12,15 @@
             <a class="btn btn-warning btn-sm btn-block" href="<%= edit_url_path(url.id)%>">
                 Edit
             </a>
-            <%= button_to "Delete",  url_path(url.id), type: "button", method: :delete , class: "btn btn-danger btn-sm btn-block" %>
+            
+            <button
+                type="button"
+                class="btn btn-danger btn-sm btn-block"
+                data-action="click->home#deleteUrl"
+                data-home-id-param="<%= url.id %>"
+            >
+                Delete
+            </button>
         </div>
         <div class="col-md-11">
             <a href="<%= url_path(url.id)%>" class="list-group-item">

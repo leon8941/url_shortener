@@ -53,7 +53,7 @@ class UrlsController < ApplicationController
     def destroy
         Url.where(id: @url.id).destroy_all
 
-        redirect_to root_path, notice: 'Successfully deleted url'
+        flash[:notice] = 'Successfully deleted url'
     end
 
     def get_url

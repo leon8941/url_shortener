@@ -1,7 +1,7 @@
 import { getMetaValue } from '../helpers/'
 
-export const callLogout = () => {
-    return fetch('/logout', {
+export const callDeleteUrl = (id) => {
+    return fetch(`/urls/${id}`, {
         method: 'DELETE',
         headers: {
             'X-CSRF-Token': getMetaValue('csrf-token')
