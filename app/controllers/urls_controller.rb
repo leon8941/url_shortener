@@ -62,13 +62,7 @@ class UrlsController < ApplicationController
         if @url.blank?
             redirect_to '/not_found'
         else
-            @url.clicks = @url.clicks + 1
-
-            unless @longitude.blank? && @latitude.blank?
-                @url.url_traces.create(longitude: @longitude, latitude: @latitude)
-            end
-
-            @url.save
+            TrackUrlService.call(@url, @longitude, @latitude)
 
             redirect_to @url.sanitize, allow_other_host: true
         end
