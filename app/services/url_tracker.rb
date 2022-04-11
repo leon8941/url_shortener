@@ -1,4 +1,4 @@
-class TrackUrlService < ApplicationService
+class UrlTracker < ApplicationService
     attr_reader :url
     
     def initialize(url, longitude, latitude)
