@@ -44,4 +44,4 @@ WHY:
 WHAT:
 # Briefly state the steps and the ideology of the changes.
 ```
-- After getting approvals, proceed to merge to `main` branch. Observe the test results from the CI/CD pipeline.
+- After getting approvals, proceed to merge to `main` branch.
